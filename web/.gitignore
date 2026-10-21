@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+public/assets/
+aircraft-renders/
+aircraft-renders.zip
+coverage/
+.env
+.env.*
+!.env.example

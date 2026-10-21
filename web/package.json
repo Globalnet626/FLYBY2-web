@@ -1,0 +1,29 @@
+{
+  "name": "flyby2-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HTML5/Three.js port of the FLYBY2 autonomous flyby screensaver",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run convert && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "convert": "tsx tools/convert-assets.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/pngjs": "^6.0.5",
+    "@types/three": "^0.186.0",
+    "pngjs": "^7.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^4.1.11"
+  }
+}

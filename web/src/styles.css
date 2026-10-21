@@ -1,0 +1,149 @@
+:root {
+  color-scheme: dark;
+  --bg0: #061018;
+  --bg1: #0b1c2a;
+  --panel: rgba(6, 16, 24, 0.78);
+  --ink: #e8f1f7;
+  --muted: #9db3c3;
+  --accent: #3aa0ff;
+  --danger: #ff6b6b;
+  --font-display: "Bahnschrift", "Segoe UI", sans-serif;
+  --font-ui: "Cascadia Mono", "Consolas", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: linear-gradient(180deg, var(--bg1), var(--bg0));
+  color: var(--ink);
+  font-family: var(--font-ui);
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#view {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  background: #000;
+}
+
+#chrome {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  max-width: min(460px, calc(100% - 24px));
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+}
+
+#brand {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+#meta {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+}
+
+#toolbar {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button,
+select {
+  font: inherit;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+button:hover,
+select:hover {
+  border-color: var(--accent);
+}
+
+#hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  background: rgba(4, 10, 16, 0.82);
+  text-align: center;
+  padding: 24px;
+}
+
+#overlay.hidden {
+  display: none;
+}
+
+#overlayText {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+#overlayText .error {
+  color: var(--danger);
+}
+
+#progress {
+  width: min(320px, 70vw);
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  justify-self: center;
+}
+
+#progress > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.15s linear;
+}
+
+@media (max-width: 640px) {
+  #chrome {
+    left: 8px;
+    right: 8px;
+    max-width: none;
+  }
+
+  #hint {
+    display: none;
+  }
+}

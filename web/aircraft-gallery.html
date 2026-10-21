@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLYBY2 Aircraft Renders</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 10px 12px; width: 1406px; height: 1398px; overflow: hidden; background: #020611; color: #e8f1f7; font: 14px Consolas, monospace; }
+      header { height: 44px; display: flex; align-items: baseline; gap: 16px; }
+      h1 { margin: 0; font: bold 23px Bahnschrift, Segoe UI, sans-serif; letter-spacing: .07em; }
+      header span { color: #9db3c3; }
+      #gallery { display: grid; grid-template-columns: repeat(6, 222px); grid-auto-rows: 326px; gap: 8px; }
+      article { padding: 6px; border: 1px solid #344052; background: #0a1422; overflow: hidden; }
+      article h2 { height: 25px; margin: 0; font-size: 15px; }
+      article img { display: block; width: 208px; height: 271px; object-fit: contain; background: #030a1b; }
+      article small { display: block; margin-top: 5px; color: #8292a9; }
+      body.focus #gallery { grid-template-columns: repeat(2, 694px); grid-auto-rows: 650px; }
+      body.focus article img { width: 678px; height: 602px; }
+    </style>
+  </head>
+  <body>
+    <header><h1>FLYBY2 AIRCRAFT</h1><span id="gallerySummary">Original port meshes · fixed three-quarter view</span></header>
+    <main id="gallery" aria-label="Aircraft renders"></main>
+    <script type="module" src="/src/aircraftGallery.ts"></script>
+  </body>
+</html>
