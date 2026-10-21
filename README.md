@@ -41,7 +41,7 @@ renders are generated locally and excluded from Git.
 
 ## GitHub repository
 
-This port is at [Globalnet626/FLYBY2](https://github.com/Globalnet626/FLYBY2)
+This port is at [Globalnet626/FLYBY2-web](https://github.com/Globalnet626/FLYBY2-web)
 on the `web-port` branch, which is the default branch. The original repository
 is retained as the `upstream` remote. GitHub Actions runs the web tests and
 production build for pushes and pull requests. Publishing the site itself is a
