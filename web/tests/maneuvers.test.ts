@@ -74,4 +74,25 @@ describe("maneuver recipes", () => {
     }
     expect(sawRibbon).toBe(true);
   });
+
+  it("setTimeScale accepts 1, 2, and 4", () => {
+    const sim = new FlybySimulation({
+      aircraftCount: 1,
+      altitude: 120,
+      smokeMode: "ribbon",
+      forceAircraft: 0,
+      forceManeuver: 0,
+      seed: 1,
+    });
+    const advance = (scale: number) => {
+      sim.setTimeScale(scale);
+      const start = sim.currentTime;
+      sim.step(0.02);
+      return sim.currentTime - start;
+    };
+    expect(advance(1)).toBeCloseTo(0.02);
+    expect(advance(2)).toBeCloseTo(0.04);
+    expect(advance(4)).toBeCloseTo(0.08);
+    expect(advance(3)).toBeCloseTo(0.02);
+  });
 });

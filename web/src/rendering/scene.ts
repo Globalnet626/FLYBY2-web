@@ -6,6 +6,7 @@ import type {
   ConvertedTer,
 } from "../assets/types";
 import type { FlybyFrame } from "../simulation/flyby";
+import { createThickGroundGrid } from "./groundGrid";
 import { meshFromPc2, meshFromSrf, meshFromTer } from "./meshes";
 import { applyPose, impulseVerticalFovDeg } from "./pose";
 import { SmokeRenderer } from "./smokeRender";
@@ -29,6 +30,7 @@ export class FlybyScene {
   private aircraftMeshes: THREE.Group[] = [];
   private smoke = new SmokeRenderer();
   private grid: THREE.LineSegments;
+  private gridViewport = { x: 1, y: 1 };
   private ground: THREE.Mesh;
   private sky: THREE.Mesh;
 
@@ -67,7 +69,8 @@ export class FlybyScene {
     this.ground.position.y = -0.05;
     this.scene.add(this.sky, this.ground);
 
-    this.grid = this.makeGrid();
+    this.syncGridViewport();
+    this.grid = createThickGroundGrid(this.gridViewport);
     this.scene.add(this.grid);
 
     this.scene.add(this.aircraftRoot);
@@ -160,6 +163,7 @@ export class FlybyScene {
     const h = Math.max(1, height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(w, h, false);
+    this.syncGridViewport();
     this.camera.aspect = w / h;
     this.camera.fov = impulseVerticalFovDeg(this.camera.aspect);
     this.camera.updateProjectionMatrix();
@@ -173,21 +177,9 @@ export class FlybyScene {
     return this.renderer.domElement.toDataURL("image/png");
   }
 
-  private makeGrid(): THREE.LineSegments {
-    const pts: number[] = [];
-    for (let x = -20000; x <= 20000; x += 1000) {
-      pts.push(x, 0, -20000, x, 0, 20000);
-      pts.push(-20000, 0, x, 20000, 0, x);
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-    return new THREE.LineSegments(
-      geo,
-      new THREE.LineBasicMaterial({
-        color: 0x11117b,
-        transparent: true,
-        opacity: 0.65,
-      }),
-    );
+  private syncGridViewport(): void {
+    const canvas = this.renderer.domElement;
+    this.gridViewport.x = Math.max(1, canvas.width);
+    this.gridViewport.y = Math.max(1, canvas.height);
   }
 }
