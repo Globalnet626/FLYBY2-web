@@ -59,6 +59,10 @@ describe("ground grid", () => {
       "gl_Position.xy += groundNormal * (2.0 / groundViewport) * gl_Position.w;",
     );
     expect(shader.vertexShader).toContain("#include <project_vertex>\nvec4 groundClip");
+    expect(shader.vertexShader).toContain("if (gl_Position.w > groundEpsilon)");
+    expect(shader.vertexShader).toContain("if (groundClip.w <= groundEpsilon)");
+    expect(shader.vertexShader).toContain("groundClip = mix(gl_Position, groundClip, groundT);");
+    expect(shader.vertexShader).toContain("if (groundLength >= 1e-6)");
     expect(shader.uniforms.groundViewport.value).toBe(viewport);
 
     viewport.x = 1280;

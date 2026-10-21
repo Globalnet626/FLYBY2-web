@@ -10,9 +10,19 @@ const STEP = 1000;
  */
 const OFFSET_CHUNK = `#include <project_vertex>
 vec4 groundClip = projectionMatrix * modelViewMatrix * vec4(groundOther, 1.0);
-vec2 groundDelta = (groundClip.xy / groundClip.w - gl_Position.xy / gl_Position.w) * groundViewport * groundSign;
-vec2 groundNormal = normalize(vec2(-groundDelta.y, groundDelta.x));
-gl_Position.xy += groundNormal * (2.0 / groundViewport) * gl_Position.w;`;
+const float groundEpsilon = 1e-4;
+if (gl_Position.w > groundEpsilon) {
+  if (groundClip.w <= groundEpsilon) {
+    float groundT = (gl_Position.w - groundEpsilon) / (gl_Position.w - groundClip.w);
+    groundClip = mix(gl_Position, groundClip, groundT);
+  }
+  vec2 groundDelta = (groundClip.xy / groundClip.w - gl_Position.xy / gl_Position.w) * groundViewport * groundSign;
+  float groundLength = length(groundDelta);
+  if (groundLength >= 1e-6) {
+    vec2 groundNormal = vec2(-groundDelta.y, groundDelta.x) / groundLength;
+    gl_Position.xy += groundNormal * (2.0 / groundViewport) * gl_Position.w;
+  }
+}`;
 
 export function buildGroundGridGeometry(): THREE.BufferGeometry {
   const positions: number[] = [];

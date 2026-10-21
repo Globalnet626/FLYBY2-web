@@ -86,6 +86,19 @@ export class FlybyApp {
         this.applyAircraft(indexOrRandom);
       },
     };
+    // Signal that the embed API is available to this window and its parent.
+    try {
+      window.dispatchEvent(new CustomEvent("flyby:ready"));
+    } catch {
+      // Event dispatch must not prevent startup or the parent notification.
+    }
+    try {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: "flyby:ready" }, "*");
+      }
+    } catch {
+      // A blocked parent must not prevent startup.
+    }
   }
 
   private applyAircraft(indexOrRandom: number | "random" | null): void {

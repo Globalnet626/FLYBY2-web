@@ -7,5 +7,6 @@ interface FlybyEmbedApi {
 }
 
 interface Window {
+  /** Available after the flyby:ready event; embeds also receive a { type: "flyby:ready" } message. */
   flyby?: FlybyEmbedApi;
 }
