@@ -39,19 +39,13 @@ The build converts the source assets, checks TypeScript, and writes the static
 site to `web/dist/`. Dependencies, converted JSON, builds, and exported gallery
 renders are generated locally and excluded from Git.
 
-## Publish this repository to your GitHub
+## GitHub repository
 
-Create an empty repository on your account without initializing a README or
-license. From this checkout, substitute your repository URL below:
-
-```sh
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-git push -u origin web-port
-```
-
-Select `web-port` as the default branch on GitHub. The original repository is
-retained as the `upstream` remote. GitHub Actions runs the web tests and production
-build for pushes and pull requests. Publishing the site itself is a separate step.
+This port is at [Globalnet626/FLYBY2](https://github.com/Globalnet626/FLYBY2)
+on the `web-port` branch, which is the default branch. The original repository
+is retained as the `upstream` remote. GitHub Actions runs the web tests and
+production build for pushes and pull requests. Publishing the site itself is a
+separate step.
 
 ## Attribution and assets
 
