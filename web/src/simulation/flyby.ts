@@ -63,7 +63,7 @@ export class FlybySimulation {
   private readonly altitude: number;
   private readonly aircraftCount: number;
   private readonly smokeMode: SmokeMode;
-  private readonly timeScale: number;
+  private timeScale: number;
   private readonly rng: SeededRandom;
   private forceAircraft: number | null;
   private forceManeuver: ManeuverId | null;
@@ -93,6 +93,11 @@ export class FlybySimulation {
 
   setForceAircraft(index: number | null): void {
     this.forceAircraft = index;
+  }
+
+  /** 1, 2, or 4. Any other value stays at 1×. */
+  setTimeScale(scale: number): void {
+    this.timeScale = scale === 2 || scale === 4 ? scale : 1;
   }
 
   setForceManeuver(id: ManeuverId | null): void {

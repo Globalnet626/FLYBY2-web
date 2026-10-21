@@ -52,6 +52,7 @@ export class FlybyApp {
         altitude: manifest.altitude,
         smokeMode,
       });
+      this.publishEmbedApi();
       this.hideOverlay();
       this.onResize();
       this.running = true;
@@ -72,10 +73,30 @@ export class FlybyApp {
     this.ui.btnShot.addEventListener("click", () => this.screenshot());
     this.ui.aircraftSelect.addEventListener("change", () => {
       const v = this.ui.aircraftSelect.value;
-      if (!this.sim) return;
-      this.sim.setForceAircraft(v === "" ? null : Number(v));
-      this.restart();
+      this.applyAircraft(v === "" ? "random" : Number(v));
     });
+  }
+
+  private publishEmbedApi(): void {
+    window.flyby = {
+      setSpeed: (scale) => {
+        this.sim?.setTimeScale(scale);
+      },
+      setAircraft: (indexOrRandom) => {
+        this.applyAircraft(indexOrRandom);
+      },
+    };
+  }
+
+  private applyAircraft(indexOrRandom: number | "random" | null): void {
+    if (!this.sim) return;
+    const index =
+      typeof indexOrRandom === "number" && Number.isFinite(indexOrRandom)
+        ? Math.trunc(indexOrRandom)
+        : null;
+    this.sim.setForceAircraft(index);
+    this.ui.aircraftSelect.value = index == null ? "" : String(index);
+    this.restart();
   }
 
   private fillAircraftSelect(): void {
